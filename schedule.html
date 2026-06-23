@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FeediFish — Feeding Schedule</title>
+  <meta name="description" content="Manage your FeediFish automatic feeding schedules. Set times, servo durations, and repeat patterns." />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/design-system.css" />
+  <link rel="stylesheet" href="css/layout.css" />
+  <link rel="stylesheet" href="css/schedule.css" />
+</head>
+<body>
+  <div class="page-wrapper">
+    <!-- ── Top Navigation ────────────────────────────────── -->
+    <header class="top-nav">
+      <div class="top-nav-brand">
+        <span class="material-symbols-outlined icon-filled brand-icon">waves</span>
+        <span class="brand-text">FeediFish</span>
+      </div>
+      <nav class="top-nav-links">
+        <a href="index.html" class="top-nav-link">DASHBOARD</a>
+        <a href="schedule.html" class="top-nav-link active">SCHEDULE</a>
+        <a href="analytics.html" class="top-nav-link">ANALYTICS</a>
+        <a href="settings.html" class="top-nav-link">SETTINGS</a>
+      </nav>
+      <div class="top-nav-actions">
+        <button class="desktop-only btn-primary" id="btn-add-schedule-desktop" style="font-size: 14px; padding: 8px 16px;">
+          <span class="material-symbols-outlined" style="font-size: 18px;">add</span>
+          Add Schedule
+        </button>
+        <button id="btn-theme-toggle" aria-label="Toggle theme">
+          <span class="material-symbols-outlined" id="theme-icon">dark_mode</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- ── Main Content ──────────────────────────────────── -->
+    <main class="page-content">
+      <div class="container-narrow">
+        <!-- Page Header -->
+        <div class="page-header animate-fade-in">
+          <h1>Feeding Schedule</h1>
+          <p>Manage automatic feeding time and servo duration.</p>
+        </div>
+
+        <!-- Schedule List -->
+        <section class="section" id="schedule-list">
+          <!-- Cards rendered by JS -->
+        </section>
+
+        <!-- Empty State -->
+        <div class="empty-state animate-fade-in" id="empty-state" style="display: none;">
+          <span class="material-symbols-outlined" style="font-size: 48px; color: var(--color-outline);">calendar_today</span>
+          <p class="text-headline-sm color-variant" style="margin-top: 12px;">No schedules yet</p>
+          <p class="text-body-sm color-muted" style="margin-top: 4px;">Tap the button below to add your first feeding schedule.</p>
+        </div>
+      </div>
+    </main>
+
+    <!-- ── FAB (Mobile) ──────────────────────────────────── -->
+    <div class="fab-container mobile-only">
+      <button class="btn-primary fab-button" id="btn-add-schedule-mobile">
+        <span class="material-symbols-outlined icon-filled" style="font-size: 20px;">add</span>
+        <span class="text-headline-sm" style="color: #fff;">Add Schedule</span>
+      </button>
+    </div>
+
+    <!-- ── Bottom Navigation (Mobile) ────────────────────── -->
+    <nav class="bottom-nav">
+      <a href="index.html" class="bottom-nav-item">
+        <span class="material-symbols-outlined nav-icon">grid_view</span>
+        <span class="nav-label">Dashboard</span>
+      </a>
+      <a href="schedule.html" class="bottom-nav-item active">
+        <span class="material-symbols-outlined nav-icon">calendar_today</span>
+        <span class="nav-label">Schedule</span>
+      </a>
+      <a href="analytics.html" class="bottom-nav-item">
+        <span class="material-symbols-outlined nav-icon">query_stats</span>
+        <span class="nav-label">Analytics</span>
+      </a>
+      <a href="settings.html" class="bottom-nav-item">
+        <span class="material-symbols-outlined nav-icon">settings</span>
+        <span class="nav-label">Settings</span>
+      </a>
+    </nav>
+
+    <!-- ── Add/Edit Schedule Modal ────────────────────────── -->
+    <div class="modal-overlay" id="schedule-modal">
+      <div class="modal-sheet">
+        <div class="modal-handle"></div>
+
+        <div class="modal-header">
+          <h2 id="modal-title">Add Schedule</h2>
+          <button class="modal-close" id="modal-close">
+            <span class="material-symbols-outlined" style="font-size: 18px;">close</span>
+          </button>
+        </div>
+
+        <form id="schedule-form">
+          <input type="hidden" id="schedule-id" value="" />
+
+          <!-- Time Picker -->
+          <div class="form-group">
+            <label class="form-label">Feeding Time</label>
+            <div class="time-picker">
+              <select id="time-hour">
+                <!-- 1-12 hours -->
+              </select>
+              <span class="time-separator">:</span>
+              <select id="time-minute">
+                <!-- 00-59 minutes -->
+              </select>
+              <select id="time-ampm" style="width: 70px; font-size: 18px;">
+                <option value="AM">AM</option>
+                <option value="PM">PM</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Servo Duration -->
+          <div class="form-group">
+            <label class="form-label">Servo Duration</label>
+            <div class="slider-value"><span id="servo-value">2</span>s</div>
+            <div class="slider-container">
+              <input type="range" class="slider-input" id="servo-slider" min="1" max="5" step="1" value="2" />
+              <div class="slider-labels text-label-caps color-muted">
+                <span>1s</span>
+                <span>2s</span>
+                <span>3s</span>
+                <span>4s</span>
+                <span>5s</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Repeat -->
+          <div class="form-group">
+            <label class="form-label">Repeat</label>
+            <div class="chip-group" id="repeat-chips">
+              <button type="button" class="chip active" data-value="everyday">Everyday</button>
+              <button type="button" class="chip" data-value="weekdays">Weekdays</button>
+              <button type="button" class="chip" data-value="weekends">Weekends</button>
+              <button type="button" class="chip" data-value="once">Once</button>
+            </div>
+          </div>
+
+          <!-- Actions -->
+          <div class="modal-actions">
+            <button type="button" class="btn-secondary" id="modal-cancel" style="flex: 1;">Cancel</button>
+            <button type="submit" class="btn-primary" id="modal-save" style="flex: 1;">Save Schedule</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- ── Delete Confirmation Modal ──────────────────────── -->
+    <div class="modal-overlay" id="delete-modal">
+      <div class="modal-sheet" style="max-width: 400px;">
+        <div class="modal-handle"></div>
+        <div style="text-align: center; padding: 16px 0;">
+          <span class="material-symbols-outlined" style="font-size: 48px; color: var(--color-error);">delete_forever</span>
+          <h2 class="text-headline-md" style="margin: 16px 0 8px;">Delete Schedule?</h2>
+          <p class="text-body-lg color-variant">This action cannot be undone.</p>
+        </div>
+        <div class="modal-actions">
+          <button class="btn-secondary" id="delete-cancel" style="flex: 1;">Cancel</button>
+          <button class="btn-primary" id="delete-confirm" style="flex: 1; background: var(--color-error);">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/app.js"></script>
+  <script src="js/schedule.js"></script>
+</body>
+</html>

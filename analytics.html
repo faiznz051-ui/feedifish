@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FeediFish — Analytics</title>
+  <meta name="description" content="FeediFish analytics dashboard. View feeding charts, temperature trends, and tank ecosystem statistics." />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/design-system.css" />
+  <link rel="stylesheet" href="css/layout.css" />
+  <link rel="stylesheet" href="css/analytics.css" />
+</head>
+<body>
+  <div class="page-wrapper">
+    <!-- ── Top Navigation ────────────────────────────────── -->
+    <header class="top-nav">
+      <div class="top-nav-brand">
+        <span class="material-symbols-outlined icon-filled brand-icon">waves</span>
+        <span class="brand-text">FeediFish</span>
+      </div>
+      <nav class="top-nav-links">
+        <a href="index.html" class="top-nav-link">DASHBOARD</a>
+        <a href="schedule.html" class="top-nav-link">SCHEDULE</a>
+        <a href="analytics.html" class="top-nav-link active">ANALYTICS</a>
+        <a href="settings.html" class="top-nav-link">SETTINGS</a>
+      </nav>
+      <div class="top-nav-actions">
+        <button id="btn-theme-toggle" aria-label="Toggle theme">
+          <span class="material-symbols-outlined" id="theme-icon">dark_mode</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- ── Main Content ──────────────────────────────────── -->
+    <main class="page-content">
+      <div class="container" style="max-width: 900px;">
+        <!-- Page Header -->
+        <div class="page-header animate-fade-in">
+          <h1>Analytics</h1>
+          <p>Your tank's ecosystem at a glance.</p>
+        </div>
+
+        <!-- Time Range Selector -->
+        <div class="section" style="display: flex; justify-content: center;">
+          <div class="pill-selector animate-fade-in stagger-1" id="time-range">
+            <button class="pill-option" data-range="day">Day</button>
+            <button class="pill-option active" data-range="week">Week</button>
+            <button class="pill-option" data-range="month">Month</button>
+            <button class="pill-option" data-range="year">Year</button>
+          </div>
+        </div>
+
+        <!-- Statistics Summary -->
+        <section class="section">
+          <div class="stats-grid animate-fade-in stagger-2">
+            <div class="glass-card stat-card">
+              <span class="text-label-caps color-variant">AVG TEMP</span>
+              <div class="stat-value">
+                <span class="stat-number color-primary" id="stat-temp">24.8</span>
+                <span class="stat-unit color-outline">°C</span>
+              </div>
+            </div>
+            <div class="glass-card stat-card">
+              <span class="text-label-caps color-variant">TOTAL FEED</span>
+              <div class="stat-value">
+                <span class="stat-number color-teal" id="stat-feed">124</span>
+                <span class="stat-unit color-outline">g</span>
+              </div>
+            </div>
+            <div class="glass-card stat-card">
+              <span class="text-label-caps color-variant">FEEDINGS</span>
+              <div class="stat-value">
+                <span class="stat-number color-ink" id="stat-feedings">14</span>
+                <span class="stat-unit color-outline">times</span>
+              </div>
+            </div>
+            <div class="glass-card stat-card">
+              <span class="text-label-caps color-variant">WATER QUALITY</span>
+              <div class="stat-value">
+                <span class="stat-number" style="color: #6b7fff;" id="stat-quality">98</span>
+                <span class="stat-unit color-outline">%</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Water Temperature Chart -->
+        <section class="section animate-fade-in stagger-3">
+          <div class="glass-card chart-card">
+            <div class="chart-header">
+              <div class="chart-title-group">
+                <span class="material-symbols-outlined" style="color: var(--color-primary);">device_thermostat</span>
+                <h2 class="text-headline-sm color-ink">Water Temperature</h2>
+              </div>
+              <span class="text-body-sm color-outline">Last 7 Days</span>
+            </div>
+            <div class="chart-area" id="temp-chart">
+              <svg viewBox="0 0 400 120" preserveAspectRatio="none" class="chart-svg">
+                <defs>
+                  <linearGradient id="tempGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stop-color="#0066cc" stop-opacity="0.15" />
+                    <stop offset="100%" stop-color="#0066cc" stop-opacity="0" />
+                  </linearGradient>
+                </defs>
+                <!-- Grid lines -->
+                <line x1="0" y1="30" x2="400" y2="30" stroke="var(--color-hairline)" stroke-width="0.5" />
+                <line x1="0" y1="60" x2="400" y2="60" stroke="var(--color-hairline)" stroke-width="0.5" />
+                <line x1="0" y1="90" x2="400" y2="90" stroke="var(--color-hairline)" stroke-width="0.5" />
+                <!-- Area fill -->
+                <path d="M0,85 Q50,50 100,65 T200,35 T300,55 T400,30 L400,120 L0,120 Z" fill="url(#tempGradient)" class="chart-area-path" />
+                <!-- Line -->
+                <path d="M0,85 Q50,50 100,65 T200,35 T300,55 T400,30" fill="none" stroke="#0066cc" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="chart-line-path" />
+                <!-- Data points -->
+                <circle cx="0" cy="85" r="4" fill="#0066cc" class="chart-dot" />
+                <circle cx="67" cy="60" r="4" fill="#0066cc" class="chart-dot" />
+                <circle cx="133" cy="65" r="4" fill="#0066cc" class="chart-dot" />
+                <circle cx="200" cy="45" r="4" fill="#0066cc" class="chart-dot" />
+                <circle cx="267" cy="55" r="4" fill="#0066cc" class="chart-dot" />
+                <circle cx="333" cy="40" r="4" fill="#0066cc" class="chart-dot" />
+                <circle cx="400" cy="30" r="4" fill="#0066cc" class="chart-dot" />
+              </svg>
+              <div class="chart-x-labels">
+                <span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Feeding Activity & Hopper Status Row -->
+        <section class="section animate-fade-in stagger-4">
+          <div class="analytics-row">
+            <!-- Feeding Activity Bar Chart -->
+            <div class="glass-card chart-card">
+              <div class="chart-header">
+                <div class="chart-title-group">
+                  <span class="material-symbols-outlined color-teal">bar_chart</span>
+                  <h2 class="text-headline-sm color-ink">Feeding Activity</h2>
+                </div>
+              </div>
+              <div class="bar-chart" id="feeding-chart">
+                <div class="bar-chart-bars">
+                  <div class="bar-wrapper">
+                    <div class="bar-tooltip text-label-caps">12g</div>
+                    <div class="bar" style="height: 40%;" data-value="12"></div>
+                    <span class="bar-label">M</span>
+                  </div>
+                  <div class="bar-wrapper">
+                    <div class="bar-tooltip text-label-caps">18g</div>
+                    <div class="bar" style="height: 60%;" data-value="18"></div>
+                    <span class="bar-label">T</span>
+                  </div>
+                  <div class="bar-wrapper">
+                    <div class="bar-tooltip text-label-caps">25g</div>
+                    <div class="bar" style="height: 90%;" data-value="25"></div>
+                    <span class="bar-label">W</span>
+                  </div>
+                  <div class="bar-wrapper">
+                    <div class="bar-tooltip text-label-caps">15g</div>
+                    <div class="bar" style="height: 50%;" data-value="15"></div>
+                    <span class="bar-label">T</span>
+                  </div>
+                  <div class="bar-wrapper">
+                    <div class="bar-tooltip text-label-caps">20g</div>
+                    <div class="bar" style="height: 70%;" data-value="20"></div>
+                    <span class="bar-label">F</span>
+                  </div>
+                  <div class="bar-wrapper">
+                    <div class="bar-tooltip text-label-caps">28g</div>
+                    <div class="bar" style="height: 100%;" data-value="28"></div>
+                    <span class="bar-label">S</span>
+                  </div>
+                  <div class="bar-wrapper">
+                    <div class="bar-tooltip text-label-caps">19g</div>
+                    <div class="bar" style="height: 65%;" data-value="19"></div>
+                    <span class="bar-label">S</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Hopper Status -->
+            <div class="glass-card chart-card hopper-card">
+              <div class="chart-header">
+                <div class="chart-title-group">
+                  <span class="material-symbols-outlined color-variant">inventory_2</span>
+                  <h2 class="text-headline-sm color-ink">Hopper Status</h2>
+                </div>
+              </div>
+              <div class="hopper-visual">
+                <svg class="hopper-ring" viewBox="0 0 128 128">
+                  <circle cx="64" cy="64" r="56" fill="transparent" stroke="var(--color-surface-container-high)" stroke-width="8" />
+                  <circle cx="64" cy="64" r="56" fill="transparent" stroke="var(--color-tertiary-container)" stroke-width="8"
+                    stroke-dasharray="351.86" stroke-dashoffset="105.56" stroke-linecap="round"
+                    transform="rotate(-90 64 64)" class="hopper-progress" />
+                </svg>
+                <div class="hopper-center">
+                  <span class="text-display-lg-mobile color-ink" id="hopper-pct">70%</span>
+                  <span class="text-label-caps color-outline">FULL</span>
+                </div>
+              </div>
+              <p class="text-body-sm color-variant" style="text-align: center;">Approx. 14 days remaining</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Recent History -->
+        <section class="section animate-fade-in stagger-5">
+          <div class="glass-card chart-card">
+            <h2 class="text-headline-sm color-ink" style="margin-bottom: 16px;">Recent History</h2>
+            <div class="history-timeline">
+              <!-- Timeline Item 1 -->
+              <div class="timeline-item">
+                <div class="timeline-indicator">
+                  <div class="timeline-dot" style="background: var(--color-primary);"></div>
+                  <div class="timeline-line"></div>
+                </div>
+                <div class="timeline-content">
+                  <div class="timeline-header">
+                    <span class="text-body-lg color-ink" style="font-weight: 500;">Scheduled Feed</span>
+                    <span class="text-label-caps color-outline">10:00 AM</span>
+                  </div>
+                  <p class="text-body-sm color-variant">Dispensed 5g of Tropical Flakes.</p>
+                </div>
+              </div>
+              <!-- Timeline Item 2 -->
+              <div class="timeline-item">
+                <div class="timeline-indicator">
+                  <div class="timeline-dot" style="background: var(--color-surface-container-highest); border: 1px solid var(--color-outline);"></div>
+                  <div class="timeline-line"></div>
+                </div>
+                <div class="timeline-content">
+                  <div class="timeline-header">
+                    <span class="text-body-lg color-ink" style="font-weight: 500;">Water Temp Alert</span>
+                    <span class="text-label-caps color-outline">Yesterday, 8:30 PM</span>
+                  </div>
+                  <p class="text-body-sm color-variant">Temperature dropped below 24°C.</p>
+                </div>
+              </div>
+              <!-- Timeline Item 3 -->
+              <div class="timeline-item">
+                <div class="timeline-indicator">
+                  <div class="timeline-dot" style="background: var(--color-tertiary-container);"></div>
+                </div>
+                <div class="timeline-content">
+                  <div class="timeline-header">
+                    <span class="text-body-lg color-ink" style="font-weight: 500;">Manual Feed</span>
+                    <span class="text-label-caps color-outline">Yesterday, 2:15 PM</span>
+                  </div>
+                  <p class="text-body-sm color-variant">Dispensed 2g remotely via app.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <!-- ── Bottom Navigation (Mobile) ────────────────────── -->
+    <nav class="bottom-nav">
+      <a href="index.html" class="bottom-nav-item">
+        <span class="material-symbols-outlined nav-icon">grid_view</span>
+        <span class="nav-label">Dashboard</span>
+      </a>
+      <a href="schedule.html" class="bottom-nav-item">
+        <span class="material-symbols-outlined nav-icon">calendar_today</span>
+        <span class="nav-label">Schedule</span>
+      </a>
+      <a href="analytics.html" class="bottom-nav-item active">
+        <span class="material-symbols-outlined nav-icon">query_stats</span>
+        <span class="nav-label">Analytics</span>
+      </a>
+      <a href="settings.html" class="bottom-nav-item">
+        <span class="material-symbols-outlined nav-icon">settings</span>
+        <span class="nav-label">Settings</span>
+      </a>
+    </nav>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/app.js"></script>
+  <script src="js/analytics.js"></script>
+</body>
+</html>

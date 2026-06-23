@@ -1,0 +1,185 @@
+/* ============================================================
+   FEEDIFISH — Dashboard Page Styles
+   ============================================================ */
+
+/* ── Hero Section ─────────────────────────────────────────── */
+.dashboard-hero {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: var(--space-lg) 0;
+}
+
+.hero-clock {
+  font-family: var(--font-display);
+  font-size: 56px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--color-ink);
+  line-height: 1;
+}
+
+.hero-ampm {
+  font-size: 22px;
+  font-weight: 400;
+  color: var(--color-outline);
+  margin-left: 4px;
+  letter-spacing: -0.01em;
+}
+
+.hero-date {
+  font-size: 17px;
+  color: var(--color-on-surface-variant);
+  margin-top: 4px;
+  letter-spacing: -0.01em;
+}
+
+@media (max-width: 480px) {
+  .hero-clock {
+    font-size: 42px;
+  }
+  .hero-ampm {
+    font-size: 18px;
+  }
+}
+
+/* ── Dashboard Grid ───────────────────────────────────────── */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-card-gutter);
+  padding-bottom: var(--space-lg);
+  width: 100%;
+}
+
+@media (min-width: 769px) {
+  .dashboard-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* ── Dashboard Cards ──────────────────────────────────────── */
+.dashboard-card {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 140px;
+  overflow: hidden;
+}
+
+.card-icon-circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.card-icon-circle .material-symbols-outlined {
+  font-size: 22px;
+}
+
+.card-value-section {
+  margin-top: auto;
+}
+
+.card-value {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--color-ink);
+  line-height: 1;
+}
+
+.card-unit {
+  font-size: 17px;
+  font-weight: 400;
+  color: var(--color-outline);
+  margin-left: 2px;
+}
+
+.card-status {
+  color: var(--color-ink);
+}
+
+.card-label {
+  margin-top: 4px;
+}
+
+/* ── Feeding Card ─────────────────────────────────────────── */
+.card-feeding {
+  grid-column: span 2;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  min-height: auto;
+  padding: 16px;
+}
+
+.card-feeding-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.btn-manual-feed {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  padding: 10px 18px;
+  white-space: nowrap;
+}
+
+@media (min-width: 769px) {
+  .card-feeding {
+    grid-column: span 4;
+    flex-direction: row;
+    align-items: center;
+    min-height: auto;
+  }
+
+  .card-feeding-info {
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .btn-manual-feed {
+    width: auto;
+    margin-top: 0;
+  }
+}
+
+/* ── Manual Feed Pulse Animation ──────────────────────────── */
+@keyframes feedPulse {
+  0% { box-shadow: 0 0 0 0 rgba(0, 102, 204, 0.4); }
+  70% { box-shadow: 0 0 0 12px rgba(0, 102, 204, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(0, 102, 204, 0); }
+}
+
+.btn-manual-feed.feeding {
+  animation: feedPulse 1s ease 3;
+}
+
+/* ── Responsive Aspect Ratios ─────────────────────────────── */
+@media (max-width: 768px) {
+  .dashboard-card {
+    min-height: 120px;
+    aspect-ratio: auto;
+  }
+
+  .card-feeding {
+    aspect-ratio: auto;
+  }
+}
+
+@media (min-width: 769px) {
+  .dashboard-card {
+    min-height: 160px;
+    aspect-ratio: auto;
+  }
+}

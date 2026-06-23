@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FeediFish — Settings</title>
+  <meta name="description" content="Configure your FeediFish device settings, WiFi, notifications, appearance, and hardware calibration." />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/design-system.css" />
+  <link rel="stylesheet" href="css/layout.css" />
+  <link rel="stylesheet" href="css/settings.css" />
+</head>
+<body>
+  <div class="page-wrapper">
+    <!-- ── Top Navigation ────────────────────────────────── -->
+    <header class="top-nav">
+      <div class="top-nav-brand">
+        <span class="material-symbols-outlined icon-filled brand-icon">waves</span>
+        <span class="brand-text">FeediFish</span>
+      </div>
+      <nav class="top-nav-links">
+        <a href="index.html" class="top-nav-link">DASHBOARD</a>
+        <a href="schedule.html" class="top-nav-link">SCHEDULE</a>
+        <a href="analytics.html" class="top-nav-link">ANALYTICS</a>
+        <a href="settings.html" class="top-nav-link active">SETTINGS</a>
+      </nav>
+      <div class="top-nav-actions">
+        <button id="btn-theme-toggle" aria-label="Toggle theme">
+          <span class="material-symbols-outlined" id="theme-icon">dark_mode</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- ── Main Content ──────────────────────────────────── -->
+    <main class="page-content">
+      <div class="container-narrow">
+        <!-- Page Header -->
+        <div class="page-header animate-fade-in">
+          <h1>Settings</h1>
+        </div>
+
+        <!-- Group: Device & Network -->
+        <section class="section animate-fade-in stagger-1">
+          <div class="settings-card">
+            <!-- Wi-Fi Settings -->
+            <button class="settings-row" id="btn-wifi">
+              <div style="display: flex; align-items: center; gap: 12px; min-width: 0;">
+                <div class="settings-icon" style="background: var(--color-primary-light); color: var(--color-primary);">
+                  <span class="material-symbols-outlined icon-filled" style="font-size: 20px;">wifi</span>
+                </div>
+                <span class="text-body-lg color-ink">Wi-Fi Settings</span>
+              </div>
+              <div style="display: flex; align-items: center; gap: 6px; flex-shrink: 0;">
+                <span class="text-body-sm color-variant" id="wifi-display">HomeNet_5G</span>
+                <span class="material-symbols-outlined color-outline" style="font-size: 20px;">chevron_right</span>
+              </div>
+              <div class="settings-row-divider"></div>
+            </button>
+
+            <!-- Device Name -->
+            <button class="settings-row" id="btn-device-name">
+              <div style="display: flex; align-items: center; gap: 12px;">
+                <div class="settings-icon" style="background: rgba(218, 228, 238, 0.6); color: var(--color-on-surface-variant);">
+                  <span class="material-symbols-outlined icon-filled" style="font-size: 20px;">router</span>
+                </div>
+                <span class="text-body-lg color-ink">Device Name</span>
+              </div>
+              <div style="display: flex; align-items: center; gap: 4px;">
+                <span class="text-body-sm color-variant" id="device-name-display">Feeder 01</span>
+                <span class="material-symbols-outlined color-outline" style="font-size: 20px;">chevron_right</span>
+              </div>
+            </button>
+          </div>
+        </section>
+
+        <!-- Group: Preferences -->
+        <section class="section animate-fade-in stagger-2">
+          <div class="section-title" style="margin-left: 4px;">Preferences</div>
+          <div class="settings-card">
+            <!-- Notifications -->
+            <div class="settings-row">
+              <div style="display: flex; align-items: center; gap: 12px;">
+                <div class="settings-icon" style="background: var(--color-error-container); color: var(--color-error);">
+                  <span class="material-symbols-outlined icon-filled" style="font-size: 20px;">notifications_active</span>
+                </div>
+                <span class="text-body-lg color-ink">Notifications</span>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" id="toggle-notifications" checked />
+                <span class="toggle-slider"></span>
+              </label>
+              <div class="settings-row-divider"></div>
+            </div>
+
+            <!-- Appearance -->
+            <button class="settings-row" id="btn-appearance">
+              <div style="display: flex; align-items: center; gap: 12px;">
+                <div class="settings-icon" style="background: var(--color-surface-container-highest); color: var(--color-on-surface-variant);">
+                  <span class="material-symbols-outlined icon-filled" style="font-size: 20px;">dark_mode</span>
+                </div>
+                <span class="text-body-lg color-ink">Appearance</span>
+              </div>
+              <div style="display: flex; align-items: center; gap: 4px;">
+                <span class="text-body-sm color-variant" id="appearance-display">Light</span>
+                <span class="material-symbols-outlined color-outline" style="font-size: 20px;">chevron_right</span>
+              </div>
+            </button>
+          </div>
+        </section>
+
+        <!-- Group: Hardware -->
+        <section class="section animate-fade-in stagger-3">
+          <div class="section-title" style="margin-left: 4px;">Hardware</div>
+          <div class="settings-card">
+            <!-- Servo Calibration -->
+            <button class="settings-row" id="btn-servo-cal">
+              <div style="display: flex; align-items: center; gap: 12px;">
+                <div class="settings-icon" style="background: rgba(0, 92, 186, 0.1); color: var(--color-primary);">
+                  <span class="material-symbols-outlined icon-filled" style="font-size: 20px;">build</span>
+                </div>
+                <span class="text-body-lg color-ink">Servo Calibration</span>
+              </div>
+              <div style="display: flex; align-items: center; gap: 4px;">
+                <span class="material-symbols-outlined color-outline" style="font-size: 20px;">chevron_right</span>
+              </div>
+            </button>
+          </div>
+        </section>
+
+        <!-- Group: System -->
+        <section class="section animate-fade-in stagger-4">
+          <div class="settings-card">
+            <!-- Reset Schedules -->
+            <button class="settings-row" id="btn-reset-schedule" style="justify-content: center;">
+              <span class="text-body-lg color-primary">Reset All Schedules</span>
+              <div class="settings-row-divider" style="left: 0;"></div>
+            </button>
+
+            <!-- Restart Device -->
+            <button class="settings-row" id="btn-restart" style="justify-content: center;">
+              <span class="text-body-lg color-primary">Restart Device</span>
+              <div class="settings-row-divider" style="left: 0;"></div>
+            </button>
+
+            <!-- Factory Reset -->
+            <button class="settings-row" id="btn-factory-reset" style="justify-content: center;">
+              <span class="text-body-lg color-error">Reset to Factory Settings</span>
+            </button>
+          </div>
+        </section>
+
+        <!-- Version Info -->
+        <div class="version-info animate-fade-in stagger-5">
+          <p class="text-body-sm color-muted" style="text-align: center;">FeediFish v1.0.0</p>
+          <p class="text-caption color-muted" style="text-align: center; margin-top: 4px;">Smart Aquarium IoT System</p>
+        </div>
+      </div>
+    </main>
+
+    <!-- ── Bottom Navigation (Mobile) ────────────────────── -->
+    <nav class="bottom-nav">
+      <a href="index.html" class="bottom-nav-item">
+        <span class="material-symbols-outlined nav-icon">grid_view</span>
+        <span class="nav-label">Dashboard</span>
+      </a>
+      <a href="schedule.html" class="bottom-nav-item">
+        <span class="material-symbols-outlined nav-icon">calendar_today</span>
+        <span class="nav-label">Schedule</span>
+      </a>
+      <a href="analytics.html" class="bottom-nav-item">
+        <span class="material-symbols-outlined nav-icon">query_stats</span>
+        <span class="nav-label">Analytics</span>
+      </a>
+      <a href="settings.html" class="bottom-nav-item active">
+        <span class="material-symbols-outlined nav-icon">settings</span>
+        <span class="nav-label">Settings</span>
+      </a>
+    </nav>
+
+    <!-- ── Wi-Fi Modal ───────────────────────────────────── -->
+    <div class="modal-overlay" id="wifi-modal">
+      <div class="modal-sheet" style="max-width: 400px;">
+        <div class="modal-handle"></div>
+        <div class="modal-header">
+          <h2>Wi-Fi Settings</h2>
+          <button class="modal-close" onclick="closeAllModals()">
+            <span class="material-symbols-outlined" style="font-size: 18px;">close</span>
+          </button>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Network Name (SSID)</label>
+          <input type="text" class="form-input" id="wifi-ssid" value="HomeNet_5G" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Password</label>
+          <input type="password" class="form-input" id="wifi-password" placeholder="Enter password" />
+        </div>
+        <div style="display: flex; gap: 12px;">
+          <button class="btn-secondary" style="flex: 1;" onclick="closeAllModals()">Cancel</button>
+          <button class="btn-primary" style="flex: 1;" onclick="saveWifi()">Connect</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Device Name Modal ─────────────────────────────── -->
+    <div class="modal-overlay" id="device-name-modal">
+      <div class="modal-sheet" style="max-width: 400px;">
+        <div class="modal-handle"></div>
+        <div class="modal-header">
+          <h2>Device Name</h2>
+          <button class="modal-close" onclick="closeAllModals()">
+            <span class="material-symbols-outlined" style="font-size: 18px;">close</span>
+          </button>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Device Name</label>
+          <input type="text" class="form-input" id="device-name-input" value="Feeder 01" />
+        </div>
+        <div style="display: flex; gap: 12px;">
+          <button class="btn-secondary" style="flex: 1;" onclick="closeAllModals()">Cancel</button>
+          <button class="btn-primary" style="flex: 1;" onclick="saveDeviceName()">Save</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Appearance Modal ──────────────────────────────── -->
+    <div class="modal-overlay" id="appearance-modal">
+      <div class="modal-sheet" style="max-width: 400px;">
+        <div class="modal-handle"></div>
+        <div class="modal-header">
+          <h2>Appearance</h2>
+          <button class="modal-close" onclick="closeAllModals()">
+            <span class="material-symbols-outlined" style="font-size: 18px;">close</span>
+          </button>
+        </div>
+        <div class="appearance-options">
+          <button class="appearance-option" data-mode="light" id="opt-light">
+            <div class="appearance-preview appearance-light">
+              <span class="material-symbols-outlined" style="font-size: 32px; color: #1d1d1f;">light_mode</span>
+            </div>
+            <span class="text-headline-sm">Light</span>
+          </button>
+          <button class="appearance-option" data-mode="dark" id="opt-dark">
+            <div class="appearance-preview appearance-dark">
+              <span class="material-symbols-outlined" style="font-size: 32px; color: #f5f5f7;">dark_mode</span>
+            </div>
+            <span class="text-headline-sm">Dark</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Confirm Modal ─────────────────────────────────── -->
+    <div class="modal-overlay" id="confirm-modal">
+      <div class="modal-sheet" style="max-width: 400px;">
+        <div class="modal-handle"></div>
+        <div style="text-align: center; padding: 16px 0;">
+          <span class="material-symbols-outlined" id="confirm-icon" style="font-size: 48px; color: var(--color-error);">warning</span>
+          <h2 class="text-headline-md" id="confirm-title" style="margin: 16px 0 8px;">Are you sure?</h2>
+          <p class="text-body-lg color-variant" id="confirm-message">This action cannot be undone.</p>
+        </div>
+        <div style="display: flex; gap: 12px;">
+          <button class="btn-secondary" style="flex: 1;" onclick="closeAllModals()">Cancel</button>
+          <button class="btn-primary" id="confirm-action" style="flex: 1; background: var(--color-error);">Confirm</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/app.js"></script>
+  <script src="js/settings.js"></script>
+</body>
+</html>

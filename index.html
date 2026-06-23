@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FeediFish — Smart Aquarium Dashboard</title>
+  <meta name="description" content="FeediFish IoT smart fish feeder dashboard. Monitor water temperature, feed levels, and device status in real-time." />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/design-system.css" />
+  <link rel="stylesheet" href="css/layout.css" />
+  <link rel="stylesheet" href="css/dashboard.css" />
+</head>
+<body>
+  <div class="page-wrapper">
+    <!-- ── Top Navigation ────────────────────────────────── -->
+    <header class="top-nav">
+      <div class="top-nav-brand">
+        <span class="material-symbols-outlined icon-filled brand-icon">waves</span>
+        <span class="brand-text">FeediFish</span>
+      </div>
+      <nav class="top-nav-links">
+        <a href="index.html" class="top-nav-link active">DASHBOARD</a>
+        <a href="schedule.html" class="top-nav-link">SCHEDULE</a>
+        <a href="analytics.html" class="top-nav-link">ANALYTICS</a>
+        <a href="settings.html" class="top-nav-link">SETTINGS</a>
+      </nav>
+      <div class="top-nav-actions">
+        <button id="btn-theme-toggle" aria-label="Toggle theme">
+          <span class="material-symbols-outlined" id="theme-icon">dark_mode</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- ── Main Content ──────────────────────────────────── -->
+    <main class="page-content">
+      <div class="container">
+        <!-- Hero: Clock + Status -->
+        <section class="dashboard-hero animate-fade-in">
+          <div class="hero-left">
+            <h1 class="hero-clock">
+              <span id="realtime-clock">--:--</span>
+              <span class="hero-ampm" id="realtime-ampm">--</span>
+            </h1>
+            <p class="hero-date" id="realtime-date">Loading...</p>
+          </div>
+          <div class="status-pill">
+            <div class="status-dot online"></div>
+            <span class="text-label-caps color-teal">ONLINE</span>
+          </div>
+        </section>
+
+        <!-- Monitoring Cards Grid -->
+        <section class="dashboard-grid">
+          <!-- Water Temperature -->
+          <div class="glass-card glass-card-interactive dashboard-card animate-fade-in stagger-1" id="card-temp">
+            <div class="card-icon-circle" style="background: var(--color-primary-light);">
+              <span class="material-symbols-outlined icon-filled" style="color: var(--color-primary);">device_thermostat</span>
+            </div>
+            <div class="card-value-section">
+              <div class="card-value">
+                <span id="water-temp-value">24.5</span><span class="card-unit">°C</span>
+              </div>
+              <div class="card-label text-body-sm color-variant">Water Temp</div>
+            </div>
+          </div>
+
+          <!-- Feed Remaining -->
+          <div class="glass-card glass-card-interactive dashboard-card animate-fade-in stagger-2" id="card-feed">
+            <div class="card-icon-circle" style="background: rgba(0, 117, 111, 0.1);">
+              <span class="material-symbols-outlined" style="color: var(--color-tertiary-container);">inventory_2</span>
+            </div>
+            <div class="card-value-section">
+              <div class="card-value-row">
+                <div class="card-value">
+                  <span id="feed-remaining-value">85</span><span class="card-unit">%</span>
+                </div>
+              </div>
+              <div class="progress-bar" style="margin-top: 8px;">
+                <div class="progress-bar-fill" id="feed-progress" style="width: 85%; background: var(--color-tertiary-container);"></div>
+              </div>
+              <div class="card-label text-body-sm color-variant" style="margin-top: 8px;">Feed Remaining</div>
+            </div>
+          </div>
+
+          <!-- Device Status -->
+          <div class="glass-card glass-card-interactive dashboard-card animate-fade-in stagger-3" id="card-device">
+            <div class="card-icon-circle" style="background: rgba(218, 228, 238, 0.6);">
+              <span class="material-symbols-outlined" style="color: var(--color-on-surface-variant);">router</span>
+            </div>
+            <div class="card-value-section">
+              <div class="card-status text-headline-md">Active</div>
+              <div class="card-label text-body-sm color-variant">Device Status</div>
+            </div>
+          </div>
+
+          <!-- Servo Status -->
+          <div class="glass-card glass-card-interactive dashboard-card animate-fade-in stagger-4" id="card-servo">
+            <div class="card-icon-circle" style="background: var(--color-surface-container-high);">
+              <span class="material-symbols-outlined" style="color: var(--color-on-surface-variant);">settings_motion_mode</span>
+            </div>
+            <div class="card-value-section">
+              <div class="card-status text-headline-md">Ready</div>
+              <div class="card-label text-body-sm color-variant">Servo Status</div>
+            </div>
+          </div>
+
+          <!-- Feeding Today (spans 2 cols on mobile, 1 on desktop) -->
+          <div class="glass-card glass-card-interactive dashboard-card card-feeding animate-fade-in stagger-5" id="card-feeding">
+            <div class="card-feeding-info">
+              <div class="card-icon-circle" style="background: var(--color-primary-light);">
+                <span class="material-symbols-outlined" style="color: var(--color-primary);">restaurant</span>
+              </div>
+              <div>
+                <div class="text-headline-md color-ink" id="feeding-count">3/3 times</div>
+                <div class="text-body-sm color-variant">Feeding Today</div>
+              </div>
+            </div>
+            <button class="btn-primary btn-manual-feed" id="btn-manual-feed">
+              <span class="material-symbols-outlined" style="font-size: 18px;">play_arrow</span>
+              MANUAL FEED
+            </button>
+          </div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <!-- ── Bottom Navigation (Mobile) ────────────────────── -->
+    <nav class="bottom-nav">
+      <a href="index.html" class="bottom-nav-item active">
+        <span class="material-symbols-outlined nav-icon">grid_view</span>
+        <span class="nav-label">Dashboard</span>
+      </a>
+      <a href="schedule.html" class="bottom-nav-item">
+        <span class="material-symbols-outlined nav-icon">calendar_today</span>
+        <span class="nav-label">Schedule</span>
+      </a>
+      <a href="analytics.html" class="bottom-nav-item">
+        <span class="material-symbols-outlined nav-icon">query_stats</span>
+        <span class="nav-label">Analytics</span>
+      </a>
+      <a href="settings.html" class="bottom-nav-item">
+        <span class="material-symbols-outlined nav-icon">settings</span>
+        <span class="nav-label">Settings</span>
+      </a>
+    </nav>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/app.js"></script>
+  <script src="js/dashboard.js"></script>
+</body>
+</html>
